@@ -1,2 +1,2 @@
-# Projects
-This Repository contains all the development of the projects that I have done as my personal interest.  
+This folder contains all the learning and projects that I have done for my personal interest.
+This folder contains all the learning and projects that I have done for my personal interest.
