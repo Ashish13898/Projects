@@ -1,0 +1,105 @@
+<!DOCTYPE aesl-source>
+<network>
+
+
+<!--list of global events-->
+<constant name="SPEED" value="500"/>
+<constant name="STOP" value="0"/>
+<constant name="THRESHOLD" value="850"/>
+<constant name="TURNING" value="2"/>
+<constant name="TURN_AMOUNT" value="500"/>
+<constant name="WANDER" value="1"/>
+
+
+<!--node Tim on LAPTOP-DUTB06OF - 16652-->
+<node nodeId="{78774cab-ab65-454d-8e17-a2abde2e22aa}" name="Tim on LAPTOP-DUTB06OF - 16652"><![CDATA[# Thymio Program 2: Wandering
+# Thymio will wander, while keeping within the E300 Table Arena black line
+# enclosed area.
+# Ashish Dave, 16th November, 2020
+# ***********************************************************************
+# Constants:
+# THRESHOLD = Line sensor light/dark threshold
+# SPEED = Overall robot speed (range from 50 to 500)
+# TURN_AMOUNT = When turning, time delay to switch back to wandering
+# STOP = to stop the robot
+# TURNING = when robot is turning
+# TURN_AMOUNT = Amount of seconds to hold before calling timer0
+# ***********************************************************************
+# Robot states:
+# WANDER = 1
+# TURNING = 2
+# STOP = 0 # Additional functionality, see Question 5.
+# ***********************************************************************
+# Variables
+
+var state = WANDER # Start off wandering
+# Initialise program
+timer.period[0]=0 # Initialise timer0. Why?
+
+onevent button.backward
+   # If the robot is in any other state, set it to wandering
+	state = WANDER
+	# If the robot is over the line, move it forward else go backwards
+	if prox.horizontal[5] > 0 and prox.horizontal[6] > 0 then
+		motor.left.target = SPEED
+		motor.right.target = SPEED
+	else
+	  	motor.left.target = -SPEED
+		motor.right.target = -SPEED
+	end
+	call leds.top(32, 0, 0)
+return
+
+onevent button.forward
+   state = WANDER
+	motor.left.target = SPEED
+	motor.right.target = SPEED
+	call leds.top(0, 32, 0)
+return
+	
+onevent button.center
+	state = STOP
+return
+
+onevent prox
+	if state == WANDER then
+	# If the robot is close to the line and going bakwards, move forward
+		if prox.horizontal[5] > 0 and prox.horizontal[6] > 0 then
+			motor.left.target = SPEED
+			motor.right.target = SPEED
+		end
+		if prox.ground.delta[0] < THRESHOLD or prox.ground.delta[1] < THRESHOLD then
+				if prox.ground.delta[0] < THRESHOLD then
+					# Left sensor, turn right
+					motor.left.target = SPEED
+					motor.right.target = -SPEED
+					timer.period[0] = TURN_AMOUNT
+					elseif prox.ground.delta[1] < THRESHOLD then
+					# Right sensor, turn left
+					motor.left.target = -SPEED
+					motor.right.target = SPEED
+					timer.period[0] = TURN_AMOUNT - 30 # -30, Why??
+					end
+			state = TURNING
+			call leds.top(0, 0, 32)
+			end
+	elseif state == STOP then
+		motor.left.target = 0
+		motor.right.target = 0
+		call leds.top(0, 0, 0)
+	end
+return
+
+# If timer0 is nonzero then this event will be called after that amount of ms 
+onevent timer0
+	if state == TURNING then
+			motor.left.target = SPEED
+			motor.right.target = SPEED
+			timer.period[0]=0
+			state = WANDER
+			call leds.top(32,0,32)
+	end
+return	]]></node>
+
+
+</network>
