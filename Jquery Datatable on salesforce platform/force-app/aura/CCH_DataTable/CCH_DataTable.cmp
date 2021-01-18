@@ -1,0 +1,111 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes,lightning:availableForFlowScreens" controller="CCH_DataTableController" access="global">
+    <!-- Loading Jquery and Datatable Library -->
+    <ltng:require styles="/resource/dataTable_CSS" scripts='/resource/Jquery,/resource/JQuery_Datatable/DataTables-1.10.21/media/js/jquery.dataTables.min.js' afterScriptsLoaded="{!c.scriptsLoaded}"/>
+    
+    <!-- Loading AJAX UI and JS Library -->
+    <ltng:require scripts="/resource/Ajax_Js" afterScriptsLoaded="{!c.scriptsLoaded}"/>
+    <ltng:require styles="/resource/Ajax_Css" scripts='/resource/Ajax_UI' afterScriptsLoaded="{!c.scriptsLoaded}"/>
+    
+    <!-- Used for Marking the text -->
+    <ltng:require styles="/resource/JQuery_Datatable/DataTables-1.10.21/media/css/dataTables.bootstrap4.min.css" afterScriptsLoaded="{!c.scriptsLoaded}"/>
+    
+    <ltng:require scripts="/resource/HighlightJS" afterScriptsLoaded="{!c.scriptsLoaded}"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>  
+    
+    <aura:attribute name="objectName" type="String"/> 
+    <aura:attribute name="fieldsToDisplay" type="String" description=" API Name of the fields that needs to be queried (Always add Id as the last field)"/> 
+    <aura:attribute name="fieldsNameForHeader" type="String"/> 
+    <aura:attribute name="whereCondition" type="String"/> 
+    <aura:attribute name="orderBy" type="String"/> 
+    <aura:attribute name="orderByFields" type="String"/> 
+    <aura:attribute name="userId" type="String"/> 
+    <aura:attribute name="fieldForDateFilter" type="String" description=" API Name of the date field displayed in the table " /> 
+    <aura:attribute name="viewDetailLabel" type="String" Default="View Details"/> 
+    <aura:attribute name="dateFieldUIValue" type="String"/> 
+    
+    <aura:attribute name="isViewDetails" type="Boolean" Default="true"/> 
+    <aura:attribute name="isDateFilter" type="Boolean" Default="true"/> 
+    <aura:attribute name="Spinner" type="Boolean" default='false'/> 
+    <aura:attribute name="limitValue" type="Integer" default="1000" /> 
+    <aura:attribute name="dateFieldIndex" type="Integer"/> 
+    
+    <aura:attribute name="fieldsNameForHeaderList" type="String[]" description="List of headers taken from the field." />
+    <aura:attribute name="fieldsNameList" type="String[]"  />
+    <aura:attribute name="listOfRecords" type="Object[]"/> 
+    <aura:attribute name="recordObjectList" type="Object[]"/> 
+    <aura:attribute name="columns" type="String[]"/> 
+    <aura:attribute name="data" type="String[]"/> 
+    
+    <!--loading spinner start... style=Brand Medium (blue dots)-->
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">{!$Label.c.Loading}</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    <aura:if isTrue="{!not(empty(v.data))}">
+    <div class="slds-m-around_medium">
+        <div class="{! v.isDateFilter ? 'slds-show' : 'slds-hide'}" style="padding-bottom: 0.5%;">
+            <table border="0" cellspacing="0" cellpadding="0"  width="100%">
+                <tbody>
+                    <tr>
+                        <td style="width: 85%;text-align:right;padding: 0 7px 0.5% 7px;">{!v.dateFieldUIValue}&nbsp;{!$Label.c.Start}:</td>
+                        <td style="padding-bottom:0.5%;">
+                            <div class="slds-form-element">
+                                <!--<label class="slds-form-element__label" for="text-input-id-1">
+                               {!v.dateFieldUIValue} Start Date</label>-->
+                                <div class="slds-form-element__control">
+                                    <input type="text" id="min" name="min" class="slds-input" />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 80%;text-align:right;padding: 0 7px 0px 7px;">{!v.dateFieldUIValue}&nbsp;{!$Label.c.End}:</td>
+                        <td>
+                            <div class="slds-form-element">
+                                <!-- <label class="slds-form-element__label" for="text-input-id-1">
+                                {!v.dateFieldUIValue} End Date</label>-->
+                                <div class="slds-form-element__control">
+                                    <input type="text" id="max" name="max" class="slds-input" />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+        <table id="example" class="slds-table slds-table_bordered slds-table_cell-buffer" cellspacing="0" width="100%">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <aura:iteration items="{!v.fieldsNameForHeaderList}" var="rec">
+                        <th scope="col">{!rec}</th>
+                    </aura:iteration>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <aura:iteration items="{!v.fieldsNameForHeaderList}" var="rec">
+                        <aura:if isTrue = "{!v.viewDetailLabel != rec}">
+                            <th>{!rec}</th>
+                            <aura:set attribute="else">
+                                <th></th>
+                            </aura:set>
+                        </aura:if>
+                    </aura:iteration>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+        <aura:set attribute="else">
+            <div class="slds-align_absolute-center">
+                    No records found
+                </div>
+        </aura:set>
+    </aura:if>
+</aura:component>

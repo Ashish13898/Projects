@@ -1,0 +1,14 @@
+<design:component label="DataTable Component With Search Filter">
+    <design:attribute name="objectName" label="Object Name"/>	
+    <design:attribute name="fieldsToDisplay" label="API Names of the Fields" description=" API Name of the fields that needs to be queried (Always add Id as the last field)"/>	
+    <design:attribute name="fieldsNameForHeader" label="Fields Name for the Header"/>	
+    <design:attribute name="whereCondition" label="Where Condition"/>	
+    <design:attribute name="orderBy" label="Orderby"/>	
+    <design:attribute name="orderByFields" label="Order By Fields"/>
+    <design:attribute name="userId" label="UserId"/>
+    <design:attribute name="fieldForDateFilter" label="Field For Date Filter"/>
+    <design:attribute name="viewDetailLabel" label="View Details Label"/>
+    <design:attribute name="isViewDetails" label="Show View Details"/>
+    <design:attribute name="isDateFilter" label="Show Date Filters"/>	
+    <design:attribute name="limitValue" label="Number of Records to Fetch"/>	
+</design:component>
