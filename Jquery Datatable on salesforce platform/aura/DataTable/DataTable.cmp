@@ -1,4 +1,4 @@
-<aura:component implements="forceCommunity:availableForAllPageTypes,lightning:availableForFlowScreens" controller="CCH_DataTableController" access="global">
+<aura:component implements="forceCommunity:availableForAllPageTypes,lightning:availableForFlowScreens" controller="DataTableController" access="global">
     <!-- Loading Jquery and Datatable Library -->
     <ltng:require styles="/resource/dataTable_CSS" scripts='/resource/Jquery,/resource/JQuery_Datatable/DataTables-1.10.21/media/js/jquery.dataTables.min.js' afterScriptsLoaded="{!c.scriptsLoaded}"/>
     

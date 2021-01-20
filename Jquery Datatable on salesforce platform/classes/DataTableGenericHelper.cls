@@ -160,7 +160,7 @@ public with sharing class CCH_DataTableGenericHelper {
     {
         SObjectType schemaType = Schema.getGlobalDescribe().get(sObjectType);
         
-        SObjectField field = CCH_DescribeCache.getField(schemaType, fieldName);
+        SObjectField field = DescribeCache.getField(schemaType, fieldName);
         
         return (field == null) ? null : field;
     }
