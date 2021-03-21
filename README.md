@@ -7,9 +7,11 @@ This folder has all the learning and projects that I have done for my personal i
 
 3. Netlogo Project ( Artificial Life, flocking and Collection behaviour of turtles )
 
-4. Python Projects ( Coding Challenges and Alien Invasion Project )
+4. Polynomial Solver 
 
-5. Research Report Using R ( US Accidents Analysis, Report and Results )
+5. Python Projects ( Coding Challenges and Alien Invasion Project )
+
+6. Research Report Using R ( US Accidents Analysis, Report and Results )
 
 
 Feel free to use to code and play around with any of the code you like :))
