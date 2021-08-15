@@ -1,0 +1,4 @@
+python_dateutil >= 2.6.0
+opencv-python >= 4.5.3
+numpy >= 1.18.0
+opencv-contrib-python >= 4.5.3
