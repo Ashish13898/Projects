@@ -7,7 +7,7 @@ Null Hypothesis: There is no difference in proportions of accidents occurring at
 
 Alternative Hypothesis: There is a difference in proportions of accidents occurring at different times of the day (Morning/Afternoon/Evening/Night).
 
-(Please contact me if you are interested or want to see the report that we had created for this research question)
+(Please reach out to me if you are interested to know more or want to see the report of this research question)
 
 Dataset
 =======
