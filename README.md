@@ -1,4 +1,4 @@
-# Projects
+# Projects 
 This folder contains all the learning and projects that I have done for my personal interest or academic purposes. 
 
 1. jQuery datatable salesforce Integration ( Generic Table Component using jQuery datatable Integration on communities )
